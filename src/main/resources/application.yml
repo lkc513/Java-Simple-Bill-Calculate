@@ -1,0 +1,10 @@
+logging:
+  level:
+    ROOT: ERROR
+    com.life.aquaeasy: DEBUG
+spring:
+  data:
+    mongodb:
+      uri: 'mongodb+srv://test_user:kcz6Yof9FFmju6iP@serverlessinstancetest.pkelm.mongodb.net/test?retryWrites=true&w=majority'
+      database: test
+      auto-index-creation: true
