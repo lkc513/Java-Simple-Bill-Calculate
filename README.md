@@ -1,6 +1,6 @@
 ## Getting Started
 
-- Bosch Interview Question Apr-2022
+- My (Bosch) Interview Apr-2022
 
 ### Tech
 
