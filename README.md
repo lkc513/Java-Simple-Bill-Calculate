@@ -1,6 +1,6 @@
 ## Getting Started
 
-- Boach Interview Question Apr-2022
+- Bosch Interview Question Apr-2022
 
 ### PROGRAM DESCRIPTION:
 
