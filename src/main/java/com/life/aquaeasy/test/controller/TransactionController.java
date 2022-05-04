@@ -39,20 +39,6 @@ public class TransactionController {
 					log.debug(">>> {}", transaction);
 				});
 
-		var total_income = transactionRepository.findAll().stream()
-				.filter(x -> this.checkCategory(x.getCategory().name()).equalsIgnoreCase("total_income"))
-				.mapToDouble(it -> it.getAmount().doubleValue())
-				.sum();
-
-		var total_savings = transactionRepository.findAll().stream()
-				.filter(x -> this.checkCategory(x.getCategory().name()).equalsIgnoreCase("total_savings"))
-				.mapToDouble(it -> it.getAmount().doubleValue())
-				.sum();
-
-		var total_expenses = transactionRepository.findAll().stream()
-				.filter(x -> this.checkCategory(x.getCategory().name()).equalsIgnoreCase("total_expenses"))
-				.mapToDouble(it -> it.getAmount().doubleValue()).sum();
-
 		var sumExpensesMap = transactionRepository.findAll().stream()
 				.filter(x -> this.checkCategory(x.getCategory().name()).equalsIgnoreCase("total_expenses"))
 				.collect(Collectors.groupingBy(it -> it.getCategory().name(), Collectors.summingDouble(x -> x.getAmount().doubleValue())));
@@ -73,12 +59,19 @@ public class TransactionController {
 		maximumExpensesCategory.forEach(it -> top_expense_category.append("@ ").append(it));
 
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("total_income", total_income);
-		jsonObject.put("total_expenses", total_expenses);
-		jsonObject.put("total_savings", total_savings);
+		jsonObject.put("total_income", this.findTotalValueByParam("total_income"));
+		jsonObject.put("total_expenses", this.findTotalValueByParam("total_expenses"));
+		jsonObject.put("total_savings", this.findTotalValueByParam("total_savings"));
 		jsonObject.put("top_expense_category", top_expense_category);
 
 		return jsonObject.toString();
+	}
+
+	private double findTotalValueByParam(String param) {
+		return transactionRepository.findAll().stream()
+				.filter(x -> this.checkCategory(x.getCategory().name()).equalsIgnoreCase(param))
+				.mapToDouble(it -> it.getAmount().doubleValue())
+				.sum();
 	}
 
 	private String checkCategory(String category) {
