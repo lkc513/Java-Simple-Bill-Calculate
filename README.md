@@ -1,7 +1,5 @@
 ## Getting Started
 
-- My (Bosch) Interview Apr-2022
-
 ### Tech
 
 - Springboot Framwork
